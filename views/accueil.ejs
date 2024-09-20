@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="./CSS/stylePopUp.css">
+    <link rel="stylesheet" href="./CSS/milieu.css">
+    <link rel="stylesheet" href="./CSS/panier.css">
+    <link rel="stylesheet" href="./CSS/footer.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="./JS/popUp.js"></script>
+    <script src="./JS/general.js"></script>
+    <script src="./JS/panier.js"></script>
+</head>
+
+<body>
+    
+    <% if (connected && !gerant){ %>
+        <% if (isBirthday) { %>
+            <div id="confetti-container"></div>
+        <% } %>
+    <% } %>
+    <nav class="top">
+        <div class="topLien">
+            <!-- Lien de connexion qui affiche le popup -->
+            <% if (!connected) { %>
+                <a href="#" id="connexionLink" class="styleLien"><span>Connexion</span></a>
+            <% } else { %> 
+                <a href="/logout" id="deconnexion" class="styleLien"><span>Déconnexion</span></a>
+                <% if (!gerant) { %><button id="btnHistorique" class="styleLien btnNav"><span>Historique</span></button> <% } %>
+            <% } 
+            if (!gerant) { %>
+                <!-- le client doit se connecter s'il clique sur le panier -->
+                <a href="/" class="panier styleLien">
+                    <span>Panier </span>
+                    <% if (connected) { %>
+                        <span class="chiffrePanier">(<%= nbArticle %>)</span>
+                    <% } %>
+                </a>
+                <% if (!connected) { %>
+                    <script>
+                        window.panierCo = false;
+                    </script>
+                <% } else {  %>
+                    <script>
+                        window.panierCo = true;
+                    </script>
+                <% } %>    
+        </div>
+                <div class="produit">
+                    <button id="btnProd" class="styleLien btnNav"><span>Nos Produits</span></button>
+                    <% if (connected && !gerant){ %>
+                        <% if (isBirthday) { %>
+                            <button id="btnPromo" class="styleLien btnNav"><span>Promos</span></button>
+                        <% } %>
+                    <% } %>
+                </div>
+                <div> <!-- logo -->
+                    <a href="/">
+                        <img src="images/logo.png" class="logo" alt="logo" />
+                    </a>
+                </div>
+            <% } %>
+    </nav>
+
+    <div class="nuage">
+        <img src="images/cloud.png" alt="nuage">
+    </div>
+    <div class="nuage2">
+        <img src="images/cloud.png" alt="nuage">
+    </div>
+    <div class="nuage3">
+        <img src="images/cloud.png" alt="nuage">
+    </div>
+    <div class="chaise">
+        <img src="images/chaise.png" alt="chaise">
+    </div>
+    <div class="tapis">
+        <img src="images/tapis.png" alt="tapis">
+    </div>
+    <div class="chateau">
+        <img src="images/chateau.png" alt="chateau">
+    </div>
+    <div class="pas">
+        <img src="images/pas.png" alt="pas">
+    </div>
+    <div class="ballon">
+        <img src="images/ballon.png" alt="ballon">
+    </div>
+ 
+    
+    
+    <%- include('popUp.ejs', { connected, gerant,fonction ,promo:false}) %>
+
+    <!-- contenu au milieu de la page -->
+    <div class="milieu">
+        <%- include('popUpTemp.ejs', { connected: connected, erreur }) %>
+        <!-- je suis un gerant -->
+        <% if (gerant) { %>
+            <%- include('gerant.ejs', { connected: connected, gerant: gerant }) %>
+        <!-- je suis un client -->
+        <% } else { %>                
+                <div id="reste">
+                    <% if (!connected) { %>
+                        <h1>Achetez ce que vous voulez dans notre catalogue grâce à vos points accumulés !</h1>
+                    <%} else {%>
+                        <!-- Champ pour stocker l'ID de l'utilisateur connecté -->
+                        <input type="hidden" id="userId" value="<%= userId %>" />
+                        <h1>Votre carte : </h1>
+                    <% } %>
+                    <div class="carte">
+                        <div class="barreNoire">
+                                <h1>VAMOS A LA PLAYA </h1>                    
+                        </div>
+                        <% if (connected) { %>
+                            <p class="pointCard"><%= points - prixTotal %> pts</p>
+                            <p class="usernameCard"><%= username %> </p>
+                        <% } %>
+                    </div>
+                </div>
+        <% } %>
+        <a href="/" class="retourAccueil descrHide"><div>Retour</div></a>
+    </div>
+   
+   
+
+    <!-- pour le panier -->
+    <div class="aside">
+        <% if(!gerant && connected) { %>
+            <%- include('panier.ejs', { connected: connected, panier: panier, prixTotal : prixTotal }) %>
+        <% } %>
+    </div>
+    
+
+    <footer class="footer">
+        <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+        </div>
+    </footer>
+
+   
+</body>
+
+</html>

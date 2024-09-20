@@ -1,0 +1,163 @@
+/* pour afficher le contenu du panier */
+.aside {
+    grid-area: 1 / 5 / 5 / 6;
+    position: fixed;
+    top: 0;
+    right: -400px;
+    /* Position initiale, ajustez selon votre design */
+    width: 400px;
+    /* Largeur fixe de l'aside */
+    height: 100vh;
+    /* Prend toute la hauteur de la page */
+    background-color: #f7f4f4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease;
+    /* Animation de transition */
+    z-index: 999;
+    overflow-y: auto;
+    border-radius: 3px;
+    scrollbar-width: thin;
+    scrollbar-color: #c0c0c0 #ffffff;
+    font-size: smaller;
+}
+
+.panier-content>p {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.panier-content {
+    padding: 20px;
+}
+
+.panier-content>ul>li {
+    list-style-type: none;
+    position: relative;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 2px solid rgb(172, 170, 170);
+    border-radius: 4px;
+    cursor: pointer;
+    flex-direction: row;
+    /* Disposition horizontale des éléments enfants */
+    height: 100%;
+}
+
+.containerAsidePanier {
+    display: flex;
+    flex-direction: column;
+    background-color: #eee7e7;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 2px;
+    padding-right: auto;
+    flex: 1 1 auto;
+}
+
+.containerBoutonPanier {
+    position: absolute;
+    transform: translateY(-25%);
+    top: 50%;
+    right: 2%;
+    background-color: rgb(231, 225, 225);
+    border-radius: 3px solid rgb(172, 170, 170);
+}
+
+.containerBoutonPanier>button {
+    height: 30px;
+    width: 30px;
+}
+
+.panier-content>ul>li :hover {
+    opacity: 0.85;
+}
+
+.panier-content>ul>li>a>img {
+    width: 150px;
+    height: 150px;
+    border-bottom-left-radius: 20px;
+    object-fit: cover;
+}
+
+#nomAside {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: 10%;
+}
+
+.asidePrix {
+    margin-left: 5%;
+    margin-top: auto;
+    padding: 0px;
+}
+
+.asideQuantite {
+    margin-left: 5%;
+    padding: 0%;
+}
+
+.asideCouleur {
+    margin-top: auto;
+    margin-left: 5%;
+    padding: 0%;
+}
+
+.asideTaille {
+    margin-top: auto;
+    margin-left: 5%;
+    margin-bottom: 10%;
+    padding: 0%;
+}
+
+.buttonPanier>button {
+    padding: 10px;
+    background-color: #eee7e7;
+    border-radius: 5px;
+    border: solid rgb(201, 197, 197) 2px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.buttonPanier :hover {
+    opacity: 0.85;
+}
+
+.buttonPanier {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#videPanier {
+    margin-right: auto;
+    color: #934d4d;
+}
+
+#validerPanier {
+    margin-left: auto;
+    color: #4f9a4a;
+}
+
+@media screen and (max-width: 599.98px) {
+    .aside {
+        grid-area: 1 / 5 / 5 / 6;
+        top: 0;
+        right: -390px;
+        width: 390px;
+        height: 100vh;
+        background-color: #f7f4f4;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        transition: right 0.3s ease;
+        z-index: 999;
+        overflow-y: auto;
+        border-radius: 3px;
+        scrollbar-width: thin;
+        scrollbar-color: #c0c0c0 #ffffff;
+        font-size: small;
+        padding: 10px;
+    }
+
+    
+}

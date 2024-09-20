@@ -1,0 +1,82 @@
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<%- include('popUpTemp.ejs', { connected: connected, erreur }) %>
+
+<div class="titrePromo">Profitez</div> 
+<div class="titrePromo"> 
+  <span>de nos promotions exceptionnelles !</span>
+</div>
+<input type="hidden" id="promoOrNOt" value="true" />
+<% if (articlesWithPromo && articlesWithPromo.length > 0) { %>
+    <% if(connected){ %>
+        <input type="hidden" id="userId" value="<%= userId %>" />
+        <ul class="articlesWithPromo listeArticle" id="nosProduits">                          
+            <% for (let i = 0; i < articlesWithPromo.length; i++) { %>
+                <% if (articlesWithPromo[i].prix <= points) { %>
+                    <li data-article-id="<%= articlesWithPromo[i].id %>">
+                        <a href="#"><img src="images/<%= articlesWithPromo[i].chemin_image%>" alt="<%= articlesWithPromo[i].nom %>"></a>
+                        <span class="articleNom"><%= articlesWithPromo[i].nom %></span>
+                        <span class="nvPrix"><%= articlesWithPromo[i].nvprix %> pts</span>
+                        <span class="descrHide"><%= articlesWithPromo[i].description %></span>
+                        <div class="ancienPrix"><%= articlesWithPromo[i].prix %> pts</div>
+                        <div class="pourcentage">-<%= articlesWithPromo[i].pourcentage %>%</div>
+                        <span class="descrHide" ><%= i + 1%></span>
+                        <select class="ColorSelect">
+                            <option value="" disabled selected>Selectionnez une couleur</option>
+                            <% for (let j = 0; j < articlesWithColor.length; j++) { %>
+                                <% if (articlesWithColor[j].id === articlesWithPromo[i].id) { %>
+                                    <option value="<%= articlesWithColor[j].couleur %>"><%= articlesWithColor[j].couleur %></option>
+                                <% } %>
+                            <% } %>
+                        </select>
+                        <select class="SizeSelect">
+                            <option value="" disabled selected>Sélectionnez une taille</option>
+                            <% for (let k = 0; k < articlesWithSize.length; k++) { %>
+                                <% if (articlesWithSize[k].id === articlesWithPromo[i].id) { %>
+                                    <option value="<%= articlesWithSize[k].taille %>"><%= articlesWithSize[k].taille %></option>
+                                <% } %>
+                            <% } %>
+                        </select>
+                    </li>
+                <% } %>     
+            <% } %>
+        </ul>
+    <% }
+    else { %>
+        <ul class="articlesWithPromo listeArticle" id="nosProduits">                            
+            <% for (let i = 0; i < articlesWithPromo.length; i++) { %>
+                <li data-article-id="<%= articlesWithPromo[i].id %>">
+                    <a href="#"><img src="images/<%= articlesWithPromo[i].chemin_image%>" alt="<%= articlesWithPromo[i].nom %>"></a>
+                    <span class="articleNom"><%= articlesWithPromo[i].nom %></span>
+                    <span class="nvPrix"><%= articlesWithPromo[i].nvprix %> pts</span>
+                    <span class="descrHide"><%= articlesWithPromo[i].description %></span>
+                    <div class="ancienPrix"><%= articlesWithPromo[i].prix %> pts</div>
+                    <div class="pourcentage">-<%= articlesWithPromo[i].pourcentage %>%</div>
+                    <span class="descrHide" ><%= i + 1%></span>
+                    <select class="ColorSelect">
+                        <option value="" disabled selected>Selectionnez une couleur</option>
+                        <% for (let j = 0; j < articlesWithColor.length; j++) { %>
+                            <% if (articlesWithColor[j].id === articlesWithPromo[i].id) { %>
+                                <option value="<%= articlesWithColor[j].couleur %>"><%= articlesWithColor[j].couleur %></option>
+                            <% } %>
+                        <% } %>
+                    </select>
+                    <select class="SizeSelect">
+                        <option value="" disabled selected>Sélectionnez une taille</option>
+                        <% for (let k = 0; k < articlesWithSize.length; k++) { %>
+                            <% if (articlesWithSize[k].id === articlesWithPromo[i].id) { %>
+                                <option value="<%= articlesWithSize[k].taille %>"><%= articlesWithSize[k].taille %></option>
+                            <% } %>
+                        <% } %>
+                    </select>
+                </li>
+            <% } %>
+        </ul>     
+    <% } 
+    
+} else { %>
+    <p>Aucun article avec prix disponible.</p>
+<% } %>
+<a href="/" class="retourAccueil"><div>Retour</div></a>

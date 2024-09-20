@@ -1,0 +1,297 @@
+/* style general pour la page d'accueil */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    position: relative;
+    background-image: linear-gradient(to bottom, #c2e7ed 13%, #f5ea97 20%, #f7e982 75%, #3586ff 100%);
+    /* efecd9 f2e9a2 */
+    overflow-x: hidden;
+}
+
+.confetti {
+    width: 10px;
+    height: 10px;
+    position: fixed;
+    background-color: #f00;
+    border-radius: 50%;
+    animation: launch 5s ease-out, explode 2s ease-in-out 2s;
+    transform-origin: 50% 100%;
+    opacity: 0;
+    z-index: -1;
+}
+
+@keyframes launch {
+    0% {
+        opacity: 0;
+        transform: translateY(10vh) rotateZ(0deg);
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50vh) rotateZ(360deg);
+    }
+}
+
+img {
+    border: 0;
+}
+
+.nuage {
+    position: fixed;
+    top: 15%;
+    right: 0%;
+    animation: animateCloud 10s linear infinite;
+    z-index: -1;
+}
+
+.nuage img,
+.nuage3 img,
+.chateau img,
+.pas img,
+.ballon img {
+    width: 200px;
+    height: auto;
+}
+
+.nuage2 img,
+.chaise img,
+.tapis img {
+    width: 300px;
+    height: auto;
+}
+
+.nuage2 {
+    position: fixed;
+    top: 17%;
+    right: 0%;
+    animation: animateCloud 19s linear infinite;
+    z-index: -1;
+}
+
+.nuage3 {
+    position: fixed;
+    top: 20%;
+    right: 0%;
+    animation: animateCloudRe 13s linear infinite;
+    z-index: -1;
+}
+
+.chaise {
+    position: absolute;
+    bottom: 20%;
+    right: 5%;
+    z-index: -1;
+    animation: float 7s linear infinite;
+}
+
+.tapis {
+    position: absolute;
+    bottom: 14%;
+    right: 3%;
+    z-index: -2;
+    animation: float 7s linear infinite;
+}
+
+.chateau {
+    position: absolute;
+    bottom: 19%;
+    left: 10%;
+    z-index: -1;
+}
+
+.pas {
+    position: absolute;
+    bottom: 39%;
+    right: 0%;
+    z-index: -3;
+}
+
+.ballon {
+    position: absolute;
+    bottom: 39%;
+    left: 0%;
+    z-index: -3;
+    animation: float 7s linear infinite;
+}
+
+/* navbar */
+.top {
+    opacity: 0.95;
+    z-index: 90;
+    background-color: #c2e7ed;
+    max-height: 150px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: row-reverse;
+    position: sticky;
+    top: 0px;
+    grid-area: 1 / 1 / 2 / 6;
+    font-size: 20px;
+    margin-bottom: 100px;
+    transition: top 0.5s ease;
+    background-color: #c2e7ed;
+}
+
+.produit {
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 2%;
+}
+
+/* bouton de connexion et panier */
+.topLien {
+    margin: auto 0;
+    padding-right: 2%;
+}
+
+.top .styleLien {
+    padding: 5px;
+    text-decoration: none;
+    margin: 3px;
+    color: black;
+    position: relative;
+}
+
+.top .styleLien::before {
+    transform: scaleX(0);
+    transform-origin: bottom right;
+}
+
+.top .styleLien:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.top .styleLien::before {
+    border-radius: 50px;
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    inset: 0 0 0 0;
+    background: #3586ff;
+    z-index: -1;
+    transition: transform .3s ease;
+}
+
+.btnNav {
+    font-size: 20px;
+    background-color: transparent;
+    font-family: "Poppins", sans-serif;
+    border: none;
+    cursor: pointer;
+}
+
+.logo {
+    width: 130px;
+    height: 130px;
+    /* position: absolute;
+    left: 20px; */
+    margin-right: auto;
+    object-fit: cover;
+}
+
+a {
+    color: #3586ff;
+    text-decoration: none;
+}
+
+
+@media screen and (min-width: 600px) {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        grid-template-rows: repeat(2, auto);
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+        margin: 20px;
+    }
+
+}
+
+/* sur les petit ecran */
+@media screen and (max-width: 599.98px) {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(1, auto);
+        grid-template-rows: repeat(6, auto);
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+        margin: 20px;
+    }
+
+    .nuage img,
+    .nuage3 img,
+    .chateau img,
+    .pas img,
+    .ballon img {
+        width: 150px;
+        height: auto;
+    }
+
+    .nuage2 img,
+    .chaise img,
+    .tapis img {
+        width: 225px;
+        height: auto;
+    }
+
+    /* Disposition sur les écrans de taille inférieure à sm */
+    .panier {
+        display: none;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .ballon {
+        display: none;
+    }
+}
+
+
+
+/* animation */
+@keyframes animateCloud {
+    0% {
+        transform: translateX(100%);
+        /* Déplace l'image hors de la vue à gauche */
+    }
+
+    100% {
+        transform: translateX(-800%);
+        /* Déplace l'image hors de la vue à droite */
+    }
+}
+
+@keyframes animateCloudRe {
+    0% {
+        transform: translateX(-1000%);
+        /* Déplace l'image hors de la vue à gauche */
+    }
+
+    100% {
+        transform: translateX(120%);
+        /* Déplace l'image hors de la vue à droite */
+    }
+}

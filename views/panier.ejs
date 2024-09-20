@@ -1,0 +1,39 @@
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<!-- Contenu du panier (initialement masqué) -->
+<span class="close" id="closePanier">&times;</span>
+<div class="panier-content">
+    <% if (panier && panier.length > 0) { %>
+        <p>Votre panier :</p>
+        <ul class="articlesWithPricePanier" id="panierList">                            
+            <% for (let i = 0; i < panier.length; i++) { %>
+                <li>
+                    <a href="#"><img src="images/<%= panier[i].chemin_image %>" alt="<%= panier[i].article_id %>"></a>
+                    <div class="containerAsidePanier">
+                        <span class="asideNom" id="nomAside"><%= panier[i].nom %></span>
+                        <span class="asideQuantite">Quantité : <%= panier[i].quantite %></span>
+                        <span class="asidePrix"><%= panier[i].prix %> pts</span>
+                        <span class="descrHide"><%= panier[i].description %></span>
+                        <span class="descrHide articleIdPanier" data-article-id="<%= panier[i].articleId %>"><%= panier[i].articleId %></span>
+                        <span class="asideCouleur">Couleur : <%= panier[i].couleur %></span>
+                        <span class="asideTaille">Taille : <%= panier[i].taille %></span>
+                    </div>
+                    <div class="containerBoutonPanier">
+                        <button class="moinsArticle" data-article-id="<%= panier[i].articleId %>">-</button>
+                        <button class="plusArticle" data-article-id="<%= panier[i].articleId %>">+</button>
+                    </div>
+                </li>
+            <% } %>
+        </ul>    
+        <div class="buttonPanier">
+            <button id="videPanier">Vider le panier</button>
+            <span class="asidePrixTotal">Coût : <%= prixTotal %></span>
+            <button id="validerPanier">Valider l'achat</button>
+        </div>
+    <% } else { %>
+        <p>Votre panier est vide.</p>
+    <% } %>
+</div>
+

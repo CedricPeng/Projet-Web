@@ -1,0 +1,56 @@
+<head>
+    <meta charset="UTF-8">
+</head>
+ 
+ <!-- Popup de connexion -->
+ <div id="popupConnexion">
+    <!-- Croix de fermeture -->
+    <span class="close" id="close">&times;</span>
+    <form id="loginForm" method="post">
+        <h1>Connexion <%= fonction %></h1>
+        <div class="form-group">
+            <label for="username" id="usernameLabel">Nom d'utilisateur</label>
+            <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required>
+        </div>
+        <div class="form-group">
+            <label for="password" id="passwordLabel">Mot de passe</label>
+            <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+        </div>
+        <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
+        <button type="submit" id="valider">Se connecter</button>
+        <% if (!gerant) { %>
+            <a href="/gerante"><p>Je suis gérante</p></a>
+        <% } %>
+    </form>
+</div>
+
+<!-- Popup de description -->
+<div id="popupDescr" class="popup">
+    <div class="popup-content">
+        <!-- Champ pour stocker l'ID de l'article affiché dans le popup -->
+        <input type="hidden" id="articleId" />
+        <span class="close" id="closeDescr">&times;</span>
+        <h2 id="descrTitle"></h2>
+        <img src="" id="descrImage" alt="">
+        <p id="descrDescription"></p>
+        <p id="descrPrice"></p>
+        <div id="colorSelectorContainer"></div>
+        <div id="sizeSelectorContainer"></div>
+        <button id="ajoutBtnPanier">
+            <span>+</span>
+            Ajouter au panier
+        </button>
+        <% if (!connected) { %>
+            <script>
+                window.ajoutPanierCo = false;
+            </script>
+        <% } else {  %>
+            <script>
+                window.ajoutPanierCo = true;
+            </script>
+        <% } %>
+    </div>
+</div>
+
+<!-- Superposition modale -->
+<div id="overlay" class="overlay"></div> 

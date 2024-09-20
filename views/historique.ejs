@@ -1,0 +1,28 @@
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<%- include('popUpTemp.ejs', { connected: connected, erreur}) %>
+<input type="hidden" id="userId" value="<%= userId %>" />
+<% if (historique && historique.length > 0) { %>
+    <h1 class="titreMilieu">Voici les articles que vous vous êtes déjà procurés :</h1>
+    <ul class="historique listeArticle" id="nosProduits">                            
+        <% for (let i = 0; i < historique.length; i++) { %>
+            <li data-article-id="<%= historique[i].id %>">
+                <a href="#"><img src="images/<%= historique[i].chemin_image%>" alt="<%= historique[i].nom %>"></a>
+                <span class="historiqueNom asideNom "><%= historique[i].nom %></span>
+                <span><%= historique[i].prix %> pts</span>
+                <span class="descrHide"><%= historique[i].description %></span>
+                <div class="historiqueCouleurTaille">
+                    <span><%= historique[i].couleur %> </span>
+                    <span><%= historique[i].taille %> </span>
+                </div>                
+                <span class="descrHide" ><%= i + 1%></span>
+                
+            </li>
+        <% } %>
+    </ul>
+<%} else { %>
+    <h1>Vous n'avez rien acheté pour le moment.</h1>
+<% } %>
+<a href="/" class="retourAccueil"><div>Retour</div></a>

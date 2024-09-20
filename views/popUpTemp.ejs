@@ -1,0 +1,47 @@
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<!-- ici que l'on stoke tous les popUp d'erreur et de réussite -->
+<span class="descrHide" id="isConnected" data-connected="<%= connected %>" ></span>
+<!-- page panier qui redirige vers la page de connexion si le client n'est pas connecté -->
+
+<!-- popUp reussite -->
+<span id="panierAjoutVal" class="popUpPanierValide"><p>Article ajouté avec succès !</p></span>
+<span id="achatPopUpValide" class="popUpPanierValide"><p>Achats du panier validés</p></span>
+<span id="PopUpValide" class="popUpPanierValide"><p>Valide</p></span>
+<span id="popUpPromo" class="popUpPanierValide"><p>Comme ce produit est en promotion nous vous avons mis le prix le bas</p></span>
+
+
+<!-- popUp d'erreur -->
+<span id="panierNonCo" class="popUpPanierErreur"><p>Veuillez vous connecter pour accéder à votre panier</p></span>
+<span id="ajoutPanierNonCo" class="popUpPanierErreur"><p>Veuillez vous connecter pour ajouter des articles à votre panier</p></span>
+<span id="ajoutPanierNonComplet" class="popUpPanierErreur"><p>Veuillez choisir une couleur et une taille</p></span>
+<span id="panierAjoutErr" class="popUpPanierErreur"><p>Vous n'avez pas assez de points</p></span>
+<span id="panierVide" class="popUpPanierErreur"><p>Panier vidé</p></span> 
+<span id="panierSuppVal" class="popUpPanierErreur"><p>Article supprimé avec succès !</p></span>
+
+        <!-- popup d'erreur de connection -->
+<% if (erreur){ %>
+    <span id="popUp-erreur" class="popUpPanierErreur">
+        <p>Echec de la connexion :
+        <% if(type == "inconnu") { %>
+            Utilisateur inconnu
+        <%}else if(type == "mauvaisMdp") { %>
+            Mot de passe incorrecte
+        <%}else {%>
+            Erreur
+        <%}%>
+
+        </p>
+    </span>    
+    <script>
+        // Définir une variable globale pour indiquer l'erreur de connexion
+        window.erreurDeConnexion = true;
+    </script>
+<% } else { %>
+    <script>
+        // Définir une variable globale pour indiquer l'absence d'erreur de connexion
+        window.erreurDeConnexion = false;
+    </script>
+<% } %>

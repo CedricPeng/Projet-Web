@@ -1,0 +1,179 @@
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<% if (!connected) { %>
+    <h1>Veuillez vous connecter pour accéder aux fonctionnalités des gestionnaires.</h1>
+    <a href="/">
+        <p>Retour à l'accueil</p>
+    </a>
+<% } else { %>
+    <h1>Bonjour gérant <%= username %> !</h1>
+    <div class="grid">
+        <div class="ajouterMembre">
+            <button id="ajouterMembre">Ajouter un membre</button>
+        </div>
+        <div class="ajouterArticle">
+            <button id="ajouterArticle">Ajouter un article</button>
+        </div>
+        <div class="boutonArticle">
+            <button id="afficherArticles">Afficher les articles</button>
+        </div>
+        <div class="boutonMembre">
+            <button id="afficherMembres">Afficher les membres</button>
+        </div>
+        <div class="membres">
+            <% for(let i = 0; i < users.length; i++) { %>
+                <p><a href="#" class="membre-link" data-index="<%= i %>" data-username="<%= users[i].username %>"><%= users[i].username %></a></p>
+
+                <!-- Popup modification de membre -->
+                <div class="popupModifMembre" id="popupModifMembre_<%= i %>">
+                    <!-- Croix de fermeture -->
+                    <span class="close5" id="close5_<%= i %>">&times;</span>
+                    <form class="modifMembreForm" data-index="<%= i %>" method="post" action="/gerante">
+                        <div class="form-group">
+                            <label for="usernameModif_<%= i %>" class="usernameModifLabel_<%= i %>">Nom d'utilisateur</label>
+                            <input type="text" id="usernameModif_<%= i %>" name="usernameModif" placeholder="Nom d'utilisateur" value="<%= users[i].username %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordModif_<%= i %>" class="passwordModifLabel_<%= i %>">Mot de passe</label>
+                            <input type="password" id="passwordModif_<%= i %>" name="passwordModif" placeholder="Mot de passe" value="<%= users[i].password %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateModif_<%= i %>" class="dateModifLabel_<%= i %>">Date de naissance</label>
+                            <% const formattedDate = users[i].datenaissance.toISOString().split('T')[0]; %>
+                            <input type="date" id="dateModif_<%= i %>" name="dateModif" value="<%= formattedDate %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pointsModif_<%= i %>" class="pointsModifLabel_<%= i %>">Points</label>
+                            <input type="number" id="pointsModif_<%= i %>" name="pointsModif" placeholder="Points" value="<%= users[i].nbr_points %>" required>
+                        </div>
+                        <button type="submit" id="valider5_<%= i %>">Modifier</button>
+                        <button type="button" id="supprimer5_<%= i %>">Supprimer</button>
+                        <input type="hidden" name="idMembre" id="idM_<%= i %>" value="<%= users[i].id %>">
+                    </form>
+                </div>
+            <% } %>
+        </div>
+        <div class="articles">
+            <% for(let i = 0; i < articles.length; i++) { %>
+                <p><a href="#" class="article-link" data-index="<%= i %>" data-nom="<%= articles[i].nom %>"><%= articles[i].nom %></a></p>
+                
+                <!-- Popup modification d'article -->
+                <div class="popupModifArticle" id="popupModifArticle_<%= i %>">
+                    <!-- Croix de fermeture -->
+                    <span class="close4" id="close4_<%= i %>">&times;</span>
+                    <form class="modifArticleForm" data-index="<%= i %>" method="post" action="/gerante" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="nomArticleModif_<%= i %>" class="nomArticleModifLabel_<%= i %>">Nom de l'article</label>
+                            <input type="text" id="nomArticleModif_<%= i %>" name="nomArticleModif" placeholder="Nom de l'article" value="<%= articles[i].nom %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prixModif_<%= i %>" class="prixModifLabel_<%= i %>">Points</label>
+                            <input type="number" id="prixModif_<%= i %>" name="prixModif" placeholder="Prix en points" value="<%= articles[i].prix %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="couleursModif_<%= i %>" class="couleursModifLabel_<%= i %>">Couleurs</label>
+                            <input type="text" id="couleursModif_<%= i %>" name="couleursModif" placeholder="Couleurs" value="<%= (() => {
+                                let couleurs = '';
+                                for (let j = 0; j < articlesWithColor.length; j++) { 
+                                    if (articlesWithColor[j].id === articles[i].id) {
+                                        couleurs += articlesWithColor[j].couleur + ', ';
+                                    }
+                                }
+                                // On supprime la virgule finale
+                                return couleurs.slice(0, -2); 
+                            })() %>" >                            
+                        </div>
+                        <div class="form-group">
+                            <label for="taillesModif_<%= i %>" class="taillesModifLabel_<%= i %>">Tailles</label>
+                            <input type="text" id="taillesModif_<%= i %>" name="taillesModif" placeholder="Tailles" value="<%= (() => {
+                                let tailles = '';
+                                for (let k = 0; k < articlesWithSize.length; k++) { 
+                                    if (articlesWithSize[k].id === articles[i].id) {
+                                        tailles += articlesWithSize[k].taille + ', ';
+                                    }
+                                }
+                                // On supprime la virgule finale
+                                return tailles.slice(0, -2); 
+                            })() %>" >                            
+                        </div>
+                        <div class="form-group">
+                            <label for="descriptionModif_<%= i %>" class="descriptionModifLabel_<%= i %>">Description</label>
+                            <input type="textarea" id="descriptionModif_<%= i %>" name="descriptionModif" placeholder="Description" value="<%= articles[i].description %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageModif_<%= i %>" class="imageModifLabel_<%= i %>">Image</label>
+                            <input type="file" id="imageModif_<%= i %>" name="image">
+                        </div>
+                        <button type="submit" id="valider4_<%= i %>">Modifier</button>
+                        <button type="button" id="supprimer4_<%= i %>">Supprimer</button>
+                        <input type="hidden" name="idArticle" id="idA_<%= i %>" value="<%= articles[i].id %>">
+                    </form>
+                </div>
+            <% } %>
+        </div>
+        
+        
+    </div>
+
+    
+    <!-- Popup ajout de membre -->
+    <div id="popupAjoutMembre">
+        <!-- Croix de fermeture -->
+        <span class="close2" id="close2">&times;</span>
+        <form id="ajoutMembre" method="post" action="/gerante">
+            <div class="form-group">
+                <label for="newuser" id="newuserLabel">Prénom et nom</label>
+                <input type="text" id="newuser" name="newuser" placeholder="Prénom et nom" required>
+            </div>
+            <div class="form-group">
+                <label for="newpassword" id="newpasswordLabel">Mot de passe</label>
+                <input type="text" id="newpassword" name="newpassword" placeholder="Mot de passe" required>
+            </div>
+            <div class="date">
+                <input type="date" id="dateNaissance" name="dateNaissance" required>
+            </div>
+            <div class="form-group">
+                <label for="points" id="pointsLabel">Points</label>
+                <input type="number" id="points" name="points" placeholder="Points" required>
+            </div>
+            <button type="submit" id="valider2">Ajouter</button>
+        </form>
+    </div>
+
+    <div id="popupAjoutArticle">
+        <!-- Croix de fermeture -->
+        <span class="close3" id="close3">&times;</span>
+        <form id="ajoutArticle" method="post" action="/gerante" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nomArticle" id="nomArticleLabel">Nom de l'article</label>
+                <input type="text" id="nomArticle" name="nom" placeholder="Nom de l'article" required>
+            </div>
+            <div class="form-group">
+                <label for="prix" id="prixLabel">Points</label>
+                <input type="number" id="prix" name="prix" placeholder="Prix en points" required>
+            </div>
+            <div class="form-group">
+                <label for="couleurs" id="couleursLabel">Couleur</label>
+                <input type="text" id="couleurs" name="couleurs" placeholder="Couleur" required>
+            </div>
+            <div class="form-group">
+                <label for="tailles" id="taillesLabel">Taille</label>
+                <input type="text" id="tailles" name="tailles" placeholder="Taille" required>
+            </div>
+            <div class="form-group">
+                <label for="description" id="descriptionLabel">Description</label>
+                <input type="textarea" id="description" name="description" placeholder="Description" required>
+            </div>
+            <!-- Champ pour l'ajout d'image -->
+            <div class="form-group">
+                <label for="image" id="imageLabel">Image</label>
+                <input type="file" id="image" name="image" required>
+            </div>
+            <button type="submit" id="valider3">Ajouter</button>
+        </form>
+    </div>
+    
+    
+<% } %>
