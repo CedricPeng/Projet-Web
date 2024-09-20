@@ -6,10 +6,11 @@ Modules node:
 - npm install crypto-js
 - npm install multer
 
-Base de donnée:
-- lancer psql
+Initialiser la base de donnée:
+- lancer psql : psql -U postgres 
+- Mot de Passe : root 
 - se connecter à la base de donnée postgres en faisant \c postgres
-- exécuter \i database.sql
+- exécuter : " \i database.sql " pour créer les tables nécessaire au bon fonctionnement du site.
 
 Exécuter le projet:
 - node serveur.js
