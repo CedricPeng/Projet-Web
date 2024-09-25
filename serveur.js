@@ -1,4 +1,4 @@
-const data = require('./public/JS/database.js');
+const data = require('./database.js');
 const express = require('express');
 const app = express();
 const port = 8080;
